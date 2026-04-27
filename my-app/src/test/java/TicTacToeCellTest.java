@@ -56,4 +56,62 @@ class TicTacToeCellTest {
         assertEquals(2, cell.getCol());
         assertEquals(2, cell.getRow());
     }
+
+    @Test
+    void testSetMarkerChangesButtonText() {
+        TicTacToeCell cell = new TicTacToeCell(0, 0, 0);
+
+        cell.setMarker("X");
+
+        assertEquals("X", cell.getText());
+    }
+    @Test
+void testInitialTextIsBlank() {
+    TicTacToeCell cell = new TicTacToeCell(0, 0, 0);
+
+    assertEquals(" ", cell.getText());
+}
+
+@Test
+void testSetMarkerChangesButtonTextToX() {
+    TicTacToeCell cell = new TicTacToeCell(0, 0, 0);
+
+    cell.setMarker("X");
+
+    assertEquals("X", cell.getText());
+}
+
+@Test
+void testSetMarkerChangesButtonTextToO() {
+    TicTacToeCell cell = new TicTacToeCell(0, 0, 0);
+
+    cell.setMarker("O");
+
+    assertEquals("O", cell.getText());
+}
+
+@Test
+void testFontIsConfiguredInConstructor() {
+    TicTacToeCell cell = new TicTacToeCell(0, 0, 0);
+
+    assertEquals("Arial", cell.getFont().getName());
+    assertEquals(40, cell.getFont().getSize());
+}
+
+@Test
+void testCellIsEnabledInitially() {
+    TicTacToeCell cell = new TicTacToeCell(0, 0, 0);
+
+    assertTrue(cell.isEnabled());
+}
+
+@Test
+void testSetMarkerUsesFirstCharacterOnly() {
+    TicTacToeCell cell = new TicTacToeCell(0, 0, 0);
+
+    cell.setMarker("XO");
+
+    assertEquals('X', cell.getMarker());
+    assertEquals("XO", cell.getText());
+}
 }

@@ -287,4 +287,83 @@ class GameTest {
         assertEquals(0, game.player1.move);
         assertEquals(0, game.player2.move);
     }
+
+        @Test
+    void testPlayerDefaultBooleanFields() {
+        Player player = new Player();
+
+        assertFalse(player.selected);
+        assertFalse(player.win);
+        assertEquals(0, player.move);
+        assertEquals('\u0000', player.symbol);
+    }
+
+    @Test
+    void testGenerateMovesKeepsExistingMoves() {
+        char[] board = {'X',' ','O',' ',' ','X','O',' ',' '};
+        ArrayList<Integer> moves = new ArrayList<>();
+        moves.add(99);
+
+        game.generateMoves(board, moves);
+
+        assertTrue(moves.contains(99));
+        assertTrue(moves.contains(1));
+        assertTrue(moves.contains(3));
+        assertTrue(moves.contains(4));
+        assertTrue(moves.contains(7));
+        assertTrue(moves.contains(8));
+        assertEquals(6, moves.size());
+    }
+
+    @Test
+    void testMiniMaxFullBoardReturnsZero() {
+        char[] board = {'X','O','X','X','O','O','O','X','X'};
+
+        int move = game.MiniMax(board, game.player2);
+
+        assertEquals(0, move);
+    }
+
+    @Test
+    void testMinMoveIncrementsQOnNonTerminalPosition() {
+        char[] board = {'X','O','X',' ','O',' ',' ',' ','X'};
+        game.symbol = 'X';
+        game.q = 0;
+
+        game.MinMove(board, game.player1);
+
+        assertTrue(game.q > 0);
+    }
+
+    @Test
+    void testMaxMoveIncrementsQOnNonTerminalPosition() {
+        char[] board = {'X','O','X',' ','O',' ',' ',' ','X'};
+        game.symbol = 'X';
+        game.q = 0;
+
+        game.MaxMove(board, game.player1);
+
+        assertTrue(game.q > 0);
+    }
+
+    @Test
+    void testMiniMaxResetsQAfterExecution() {
+        char[] board = {'X','O','X','O','O',' ','X','X',' '};
+        game.q = 10;
+
+        game.MiniMax(board, game.player2);
+
+        assertEquals(0, game.q);
+    }
+    @Test
+    void testMiniMaxMultipleBestMoves() {
+    char[] board = {'X','O','X',
+                    'O','X',' ',
+                    ' ',' ','O'};
+
+    int move = game.MiniMax(board, game.player1);
+
+    assertTrue(move >= 1 && move <= 9);
+    }   
 }
+
